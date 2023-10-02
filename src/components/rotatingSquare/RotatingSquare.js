@@ -46,7 +46,7 @@ const RotatingSquare = () => {
 
     }, []);
 
-    return <div ref={mountRef} style={{width: '400px', height: '400px'}}/>;
+    return <div ref={mountRef} style={{width: "100vw", height: "100vh"}}/>;
 };
 
 export default RotatingSquare;

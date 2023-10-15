@@ -17,7 +17,7 @@ const RotatingSquare = () => {
 
         // Create a geometry and a material then combine them into a mesh
         const geometry = new THREE.BoxGeometry();
-        const material = new THREE.MeshBasicMaterial({color: 0x0077ff});
+        const material = new THREE.MeshBasicMaterial({color: 0x0099ff});
         const cube = new THREE.Mesh(geometry, material);
         scene.add(cube);
 

@@ -29,7 +29,7 @@ const Normalmap = () => {
         const controls = new OrbitControls(camera, canvasRef.current);
 
         renderer = new THREE.WebGLRenderer({canvas: canvasRef.current, antialias: true});
-        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setSize(canvasRef.current.width, canvasRef.current.height);
 
         const plane = new THREE.PlaneGeometry(100, 100);
 

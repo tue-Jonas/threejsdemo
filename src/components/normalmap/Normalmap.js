@@ -29,7 +29,7 @@ const Normalmap = () => {
         const controls = new OrbitControls(camera, canvasRef.current);
 
         renderer = new THREE.WebGLRenderer({canvas: canvasRef.current, antialias: true});
-        renderer.setSize(canvasRef.current.width, canvasRef.current.height);
+        renderer.setSize(window.innerWidth, window.innerHeight);
 
         const plane = new THREE.PlaneGeometry(100, 100);
 
@@ -51,7 +51,7 @@ const Normalmap = () => {
 
     return (
         <div style={{width: "100vw", height: "100vh", overflow: "hidden"}}>
-            <canvas ref={canvasRef} style={{width: "100%", height: "100%"}}/>
+            <canvas ref={canvasRef} />
         </div>
     );
 };

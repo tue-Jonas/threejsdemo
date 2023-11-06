@@ -3,6 +3,7 @@ import RotatingSquare from "./components/rotatingSquare/RotatingSquare";
 import Text3D from "./components/text3D/Text3D";
 import Heightmap from "./components/heightmap/Heightmap";
 import Normalmap from "./components/normalmap/Normalmap";
+import Lighting from "./components/lighting/Lighting";
 
 function App() {
     return (
@@ -12,6 +13,7 @@ function App() {
                 <Route path="/text3d" element={<Text3D/>}/>
                 <Route path="/heightmap" element={<Heightmap/>}/>
                 <Route path="/normalmap" element={<Normalmap/>}/>
+                <Route path="/lighting" element={<Lighting/>}/>
                 <Route path="*" element={<p>Sorry, nothing here</p>}/>
             </Routes>
         </BrowserRouter>

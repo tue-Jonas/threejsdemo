@@ -3,11 +3,11 @@ import {
     AmbientLight,
     AxesHelper,
     BoxGeometry,
+    CameraHelper,
     DirectionalLight,
-    DirectionalLightHelper,
     GridHelper,
     Mesh,
-    MeshStandardMaterial,
+    MeshPhongMaterial,
     PerspectiveCamera,
     PlaneGeometry,
     Scene,
@@ -15,9 +15,16 @@ import {
     WebGLRenderer
 } from 'three';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
+import { GUI } from 'dat.gui';
 
 const Lighting = () => {
     const canvasRef = useRef(null);
+    const guiRef = useRef(null);
+    const optionsRef = useRef({
+        wireframeOfSphere: false,
+        colorOfSphere: 0xff0000,
+        speedOfSphere: 0.5
+    });
 
     useEffect(() => {
         const scene = new Scene();
@@ -30,61 +37,62 @@ const Lighting = () => {
 
         const controls = new OrbitControls(camera, canvasRef.current);
 
-        // Helpers
         const axesHelper = new AxesHelper(5);
         scene.add(axesHelper);
         const gridHelper = new GridHelper(20);
         scene.add(gridHelper);
 
-        // Box
         const boxGeometry = new BoxGeometry();
-        const boxMaterial = new MeshStandardMaterial({color: 0x00ff00});
+        const boxMaterial = new MeshPhongMaterial({color: 0x00ff00});
         const box = new Mesh(boxGeometry, boxMaterial);
         scene.add(box);
 
-        // Plane
         const planeGeometry = new PlaneGeometry(15, 15);
-        const planeMaterial = new MeshStandardMaterial({color: 0xffffff});
+        const planeMaterial = new MeshPhongMaterial({color: 0xffffff});
         const plane = new Mesh(planeGeometry, planeMaterial);
         plane.rotation.x = -Math.PI / 2;
         plane.receiveShadow = true;
         scene.add(plane);
 
-        // Sphere
         const sphereGeometry = new SphereGeometry();
-        const sphereMaterial = new MeshStandardMaterial({color: 0xff0000});
+        const sphereMaterial = new MeshPhongMaterial({color: optionsRef.current.colorOfSphere});
         const sphere = new Mesh(sphereGeometry, sphereMaterial);
         sphere.position.set(3, 2, 0);
         sphere.castShadow = true;
         scene.add(sphere);
 
-        // Lights
         const ambientLight = new AmbientLight(0x404040);
         scene.add(ambientLight);
         const directionalLight = new DirectionalLight(0xffffff, 1);
         directionalLight.position.set(-10, 17, 0);
         directionalLight.castShadow = true;
         scene.add(directionalLight);
-        scene.add(new DirectionalLightHelper(directionalLight));
+        const cameraHelper = new CameraHelper(directionalLight.shadow.camera);
+        scene.add(cameraHelper);
 
-        // Animation loop
+        guiRef.current = new GUI();
+        guiRef.current.add(optionsRef.current, 'wireframeOfSphere')
+            .onChange((value) => sphere.material.wireframe = value);
+        guiRef.current.addColor(optionsRef.current, 'colorOfSphere')
+            .onChange((color) => sphere.material.color.set(color));
+        guiRef.current.add(optionsRef.current, 'speedOfSphere', 0, 5);
+
         const animate = (delay) => {
             requestAnimationFrame((delay) => animate(delay));
 
-            sphere.position.y = Math.sin(delay / 1000) + 2;
+            sphere.position.y = Math.sin(delay / 1000 * optionsRef.current.speedOfSphere) + 2;
 
             controls.update();
             renderer.render(scene, camera);
         };
         animate(0);
 
-        // Clean up
         return () => {
             controls.dispose();
             renderer.dispose();
             scene.clear();
+            guiRef.current.destroy();
 
-            // Dispose geometries and materials
             boxGeometry.dispose();
             boxMaterial.dispose();
             planeGeometry.dispose();

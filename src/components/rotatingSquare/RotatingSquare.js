@@ -40,10 +40,11 @@ const RotatingSquare = () => {
         return () => {
             geometry.dispose();
             material.dispose();
-            mountRef.current.removeChild(renderer.domElement);
+            if (mountRef.current) { // Check if mountRef.current is not null
+                mountRef.current.removeChild(renderer.domElement);
+            }
             renderer.dispose();  // This will also dispose of the scene and camera
         };
-
     }, []);
 
     return <div ref={mountRef} style={{width: "100vw", height: "100vh"}}/>;

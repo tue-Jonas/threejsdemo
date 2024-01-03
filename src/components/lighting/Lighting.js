@@ -29,7 +29,7 @@ const Lighting = () => {
     useEffect(() => {
         const scene = new Scene();
         const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.set(3, 3, 3);
+        camera.position.set(10, 10, 10);
 
         const renderer = new WebGLRenderer({canvas: canvasRef.current});
         renderer.setSize(window.innerWidth, window.innerHeight);
@@ -66,8 +66,16 @@ const Lighting = () => {
         const directionalLight = new DirectionalLight(0xffffff, 1);
         directionalLight.position.set(-10, 17, 0);
         directionalLight.castShadow = true;
+
+        // Adjust the frustum of the shadow camera
+        const shadowCamera = directionalLight.shadow.camera;
+        shadowCamera.top = 6;
+
+        // Update the shadow camera projection matrix
+        shadowCamera.updateProjectionMatrix();
+
         scene.add(directionalLight);
-        const cameraHelper = new CameraHelper(directionalLight.shadow.camera);
+        const cameraHelper = new CameraHelper(shadowCamera);
         scene.add(cameraHelper);
 
         guiRef.current = new GUI();

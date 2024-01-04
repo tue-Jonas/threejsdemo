@@ -4,6 +4,7 @@ import Heightmap from "./components/heightmap/Heightmap";
 import Normalmap from "./components/normalmap/Normalmap";
 import Lighting from "./components/lighting/Lighting";
 import Home from "./components/home/Home";
+import CarAnimation from "./components/car/CarAnimation";
 
 function App() {
     return (
@@ -14,6 +15,7 @@ function App() {
                 <Route path="/heightmap" element={<Heightmap/>}/>
                 <Route path="/normalmap" element={<Normalmap/>}/>
                 <Route path="/lighting" element={<Lighting/>}/>
+                <Route path="/car" element={<CarAnimation/>}/>
                 <Route path="*" element={<p>Sorry, nothing here</p>}/>
             </Routes>
         </BrowserRouter>

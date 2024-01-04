@@ -27,6 +27,10 @@ const Home = () => {
                     className={"btn btn-link list-group-item list-group-item-action"}>
                     Lighting
                 </li>
+                <li onClick={() => navigate("/car")}
+                    className={"btn btn-link list-group-item list-group-item-action"}>
+                    Animated Car
+                </li>
             </ul>
         </div>
     );

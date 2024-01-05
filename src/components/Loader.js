@@ -5,7 +5,10 @@ const Loader = () => {
     return (
         <Html center>
             {active && (
-                <div>
+                <div className={"text-white text-center"}>
+                    <div className="spinner-border m-4" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </div>
                     <div>Loading: {progress}%</div>
                     <div>{item}</div>
                 </div>

@@ -10,7 +10,9 @@ const CarAnimation = () => {
 
     return (
         <div>
-            <button className={"btn btn-light position-absolute z-3 m-2"} onClick={() => setShowGround(!showGround)}>Toggle Ground</button>
+            <button className={"btn btn-light position-absolute z-3 m-2"}
+                    onClick={() => setShowGround(!showGround)}>Toggle Ground
+            </button>
             {/* Add this line */}
             <Canvas className={"vh-100"} shadows>
                 <color args={[0, 0, 0]} attach="background"/>

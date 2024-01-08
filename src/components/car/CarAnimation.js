@@ -6,14 +6,13 @@ import Loader from "../Loader";
 import {Ground} from "./Ground";
 
 const CarAnimation = () => {
-    const [showGround, setShowGround] = useState(true); // Add this line
+    const [showGround, setShowGround] = useState(true);
 
     return (
         <div>
             <button className={"btn btn-light position-absolute z-3 m-2"}
                     onClick={() => setShowGround(!showGround)}>Toggle Ground
             </button>
-            {/* Add this line */}
             <Canvas className={"vh-100"} shadows>
                 <color args={[0, 0, 0]} attach="background"/>
 
@@ -24,6 +23,7 @@ const CarAnimation = () => {
 
                 <Suspense fallback={<Loader/>}>
                     <Car/>
+                    {showGround && <Ground/>}
                 </Suspense>
 
                 <ambientLight intensity={1}/>
@@ -52,8 +52,6 @@ const CarAnimation = () => {
 
                 {/*<axesHelper args={[5]}/>*/}
                 {/*<gridHelper args={[20, 20]}/>*/}
-
-                {showGround && <Ground/>} {/* Modify this line */}
             </Canvas>
         </div>
     );
